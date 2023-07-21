@@ -6,6 +6,14 @@
 + Vite
 + Scss
 
+Для запуска:
+```
+npm install
+```
+```
+npm run dev
+```
+
 ![image](https://github.com/ivandnlv/test-for-business/assets/91759945/180bd9f9-8143-4bdd-b937-4df06b8fbe55)
 
 ## Само задание:
