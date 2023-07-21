@@ -52,6 +52,9 @@
       padding: 28px 51px;
       color: $main-color;
       border: 1px solid #e3e6ec;
+      @media (max-width: 520px) {
+        padding: 10px 20px;
+      }
       &:first-of-type {
         text-align: center;
       }

@@ -2,6 +2,20 @@
   display: flex;
   width: 100%;
   justify-content: space-around;
+  @media (max-width: 520px) {
+    justify-content: center;
+    flex-direction: column;
+    .pagination__pages {
+      margin: 0 auto;
+      justify-content: center;
+      width: 90%;
+      order: 1;
+      overflow-x: auto;
+    }
+    .pagination__button {
+      display: none;
+    }
+  }
   button {
     cursor: pointer;
     display: block;
