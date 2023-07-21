@@ -4,3 +4,24 @@
   box-sizing: border-box;
   font-family: 'Roboto', system-ui;
 }
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.text {
+  font-size: 13px;
+  font-weight: 500;
+  &._light {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+$main-color: #474955;
+
+@import './components/App/App';
+@import './components/PaginationComponent/Pagination';
+@import './components/SearchComponent/Search';
+@import './components/TableComponent/Table';

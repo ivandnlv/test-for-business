@@ -1,0 +1,42 @@
+.table {
+  border-collapse: collapse;
+  max-width: 1077px;
+  width: 100%;
+  &__head {
+    background: $main-color;
+    color: #fff;
+    border: none;
+    outline: none;
+    th {
+      padding: 19px 23px 16px 23px;
+      img {
+        cursor: pointer;
+      }
+    }
+    &-id {
+      width: 118px;
+      span {
+        margin-right: 39px;
+      }
+    }
+    &-title {
+      max-width: 534px;
+      span {
+        margin-right: 34px;
+      }
+    }
+    &-description {
+      max-width: 434px;
+      span {
+        margin-right: 25px;
+      }
+    }
+  }
+  &__body {
+    td {
+      padding: 28px 51px;
+      color: $main-color;
+      border: 1px solid #e3e6ec;
+    }
+  }
+}
