@@ -15,8 +15,30 @@ interface IPostsState {
   postsCount: number;
 }
 
-const defaultSortBy: IPostsState['sortBy'] = 'id';
-const defaultSortMethod: IPostsState['sortMethod'] = 'asc';
+function customSort(
+  array: IPost[],
+  sortBy: SortBy,
+  sortMethod: IPostsState['sortMethod'],
+): IPost[] {
+  const compareFn = (a: IPost, b: IPost) => {
+    const fieldA = a[sortBy];
+    const fieldB = b[sortBy];
+
+    // Определяем порядок для сортировки по возрастанию или убыванию
+    const order = sortMethod === 'asc' ? 1 : -1;
+
+    // Сравниваем значения для сортировки
+    if (fieldA < fieldB) {
+      return -1 * order;
+    } else if (fieldA > fieldB) {
+      return 1 * order;
+    } else {
+      return 0;
+    }
+  };
+
+  return array.slice().sort(compareFn); // Возвращаем новый отсортированный массив
+}
 
 const initialState: IPostsState = {
   allPosts: null,
@@ -42,9 +64,16 @@ const postsSlice = createSlice({
     },
     setPosts(state) {
       if (state.allPosts) {
-        if (state.sortBy === defaultSortBy && state.sortMethod === defaultSortMethod) {
-          state.posts = state.allPosts.slice(state.start, state.postsPerPage * state.currentPage);
+        state.allPosts = customSort(state.allPosts, state.sortBy, state.sortMethod);
+        if (state.search) {
+          state.allPosts = state.allPosts.filter(
+            (post) =>
+              post.title.toLowerCase().includes(state.search?.toLowerCase() ?? '') ||
+              post.body.toLowerCase().includes(state.search?.toLowerCase() ?? ''),
+          );
+          state.postsCount = state.allPosts.length - 1;
         }
+        state.posts = state.allPosts.slice(state.start, state.postsPerPage * state.currentPage);
       }
     },
     setSearch(state, action: PayloadAction<IPostsState['search']>) {

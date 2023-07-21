@@ -45,7 +45,7 @@ const PaginationComponent = () => {
     }
   };
 
-  if (!pages) return null;
+  if (!pages || pages.length === 1) return null;
 
   return (
     <div className="pagination">

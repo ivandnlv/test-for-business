@@ -1,8 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { AppDispatch } from '../../redux/store';
-import arrowDownPath from './arrow-down.svg';
 import { SortBy, setSort } from '../../redux/slices/posts';
+
+import linePath from './line.svg';
+import arrowDownPath from './arrow-down.svg';
 
 interface ITableComponentProps {
   loading?: boolean;
@@ -11,10 +13,20 @@ interface ITableComponentProps {
 const TableComponent = ({ loading = false }: ITableComponentProps) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { posts, sortMethod } = useTypedSelector((state) => state.posts);
+  const { posts, sortMethod, sortBy } = useTypedSelector((state) => state.posts);
 
-  const onFieldSort = (sortBy: SortBy) => {
-    dispatch(setSort({ sortBy, sortMethod: sortMethod === 'asc' ? 'dsc' : 'asc' }));
+  const onFieldSort = (field: SortBy) => {
+    if (field === sortBy) {
+      dispatch(setSort({ sortBy: field, sortMethod: sortMethod === 'asc' ? 'dsc' : 'asc' }));
+    } else {
+      console.log('sds');
+      dispatch(setSort({ sortBy: field, sortMethod: 'asc' }));
+    }
+  };
+
+  const tableClassName = (field: SortBy): string => {
+    if (sortBy === field && sortMethod === 'dsc') return 'table__head-sort _active';
+    else return 'table__head-sort';
   };
 
   return (
@@ -23,20 +35,20 @@ const TableComponent = ({ loading = false }: ITableComponentProps) => {
         <tr>
           <th className="table__head-id">
             <span className="title">ID</span>
-            <button className="table__head-sort" onClick={() => onFieldSort('id')}>
-              <img src={arrowDownPath} alt="sort" />
+            <button className={tableClassName('id')} onClick={() => onFieldSort('id')}>
+              <img src={sortBy === 'id' ? arrowDownPath : linePath} alt="sort" />
             </button>
           </th>
           <th className="table__head-title">
             <span className="title">Заголовок</span>
-            <button className="table__head-sort" onClick={() => onFieldSort('title')}>
-              <img src={arrowDownPath} alt="sort" />
+            <button className={tableClassName('title')} onClick={() => onFieldSort('title')}>
+              <img src={sortBy === 'title' ? arrowDownPath : linePath} alt="sort" />
             </button>
           </th>
           <th className="table__head-description">
             <span className="title">Описание</span>
-            <button className="table__head-sort" onClick={() => onFieldSort('body')}>
-              <img src={arrowDownPath} alt="sort" />
+            <button className={tableClassName('body')} onClick={() => onFieldSort('body')}>
+              <img src={sortBy === 'body' ? arrowDownPath : linePath} alt="sort" />
             </button>
           </th>
         </tr>

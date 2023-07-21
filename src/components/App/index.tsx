@@ -11,7 +11,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 function App() {
   const dispatch: AppDispatch = useDispatch();
   const { data, isLoading } = useFetchPostsQuery();
-  const { currentPage } = useTypedSelector((state) => state.posts);
+  const { currentPage, sortBy, sortMethod, search } = useTypedSelector((state) => state.posts);
 
   useEffect(() => {
     if (data) {
@@ -22,7 +22,14 @@ function App() {
 
   useEffect(() => {
     dispatch(setPosts());
-  }, [currentPage]);
+  }, [currentPage, sortBy, sortMethod]);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setAllPosts(data));
+      dispatch(setPosts());
+    }
+  }, [search]);
 
   return (
     <div className="app">

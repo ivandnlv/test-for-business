@@ -18,6 +18,15 @@
       display: inline-block;
       background: none;
       border: none;
+      img {
+        transform: rotate(180deg);
+        transition: transform 0.2s ease-in-out;
+      }
+      &._active {
+        img {
+          transform: rotate(0deg);
+        }
+      }
     }
     &-id {
       width: 118px;
@@ -26,13 +35,13 @@
       }
     }
     &-title {
-      max-width: 534px;
+      width: 534px;
       span {
         margin-right: 34px;
       }
     }
     &-description {
-      max-width: 434px;
+      width: 434px;
       span {
         margin-right: 25px;
       }
@@ -43,6 +52,9 @@
       padding: 28px 51px;
       color: $main-color;
       border: 1px solid #e3e6ec;
+      &:first-of-type {
+        text-align: center;
+      }
     }
   }
 }
