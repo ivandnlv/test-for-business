@@ -68,6 +68,7 @@ const postsSlice = createSlice({
         if (state.search) {
           state.allPosts = state.allPosts.filter(
             (post) =>
+              post.id.toString() === (state.search?.toLowerCase() ?? '') ||
               post.title.toLowerCase().includes(state.search?.toLowerCase() ?? '') ||
               post.body.toLowerCase().includes(state.search?.toLowerCase() ?? ''),
           );
