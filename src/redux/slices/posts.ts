@@ -45,7 +45,7 @@ const initialState: IPostsState = {
   posts: null,
   currentPage: 1,
   start: 0,
-  postsPerPage: 9,
+  postsPerPage: 10,
   search: null,
   sortBy: 'id',
   sortMethod: 'asc',

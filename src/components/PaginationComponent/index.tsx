@@ -15,7 +15,7 @@ const PaginationComponent = () => {
   useEffect(() => {
     if (postsCount) {
       let pagesArr: number[] = [];
-      for (let i = 1; i <= Math.floor(postsCount / postsPerPage) + 1; i++) {
+      for (let i = 1; i <= Math.ceil(postsCount / postsPerPage); i++) {
         pagesArr.push(i);
       }
       setPages(pagesArr);
