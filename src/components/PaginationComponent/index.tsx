@@ -20,6 +20,8 @@ const PaginationComponent = () => {
       }
       setPages(pagesArr);
       setMaxPage(pagesArr.length);
+    } else {
+      setPages(null);
     }
   }, [postsCount]);
 
