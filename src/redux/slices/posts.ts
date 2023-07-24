@@ -13,6 +13,7 @@ interface IPostsState {
   sortBy: SortBy;
   sortMethod: 'asc' | 'dsc';
   postsCount: number;
+  pagesCount: number;
 }
 
 function customSort(
@@ -24,10 +25,8 @@ function customSort(
     const fieldA = a[sortBy];
     const fieldB = b[sortBy];
 
-    // Определяем порядок для сортировки по возрастанию или убыванию
     const order = sortMethod === 'asc' ? 1 : -1;
 
-    // Сравниваем значения для сортировки
     if (fieldA < fieldB) {
       return -1 * order;
     } else if (fieldA > fieldB) {
@@ -37,7 +36,7 @@ function customSort(
     }
   };
 
-  return array.slice().sort(compareFn); // Возвращаем новый отсортированный массив
+  return array.slice().sort(compareFn);
 }
 
 const initialState: IPostsState = {
@@ -50,6 +49,7 @@ const initialState: IPostsState = {
   sortBy: 'id',
   sortMethod: 'asc',
   postsCount: 0,
+  pagesCount: 0,
 };
 
 const postsSlice = createSlice({
@@ -96,8 +96,12 @@ const postsSlice = createSlice({
       state.sortBy = sortBy;
       state.sortMethod = sortMethod;
     },
+    setPagesCount(state, action: PayloadAction<number>) {
+      state.pagesCount = action.payload;
+    },
   },
 });
 
-export const { setPosts, setSearch, setCurrentPage, setAllPosts, setSort } = postsSlice.actions;
+export const { setPosts, setSearch, setCurrentPage, setAllPosts, setSort, setPagesCount } =
+  postsSlice.actions;
 export default postsSlice.reducer;

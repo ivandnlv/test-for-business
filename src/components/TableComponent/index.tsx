@@ -13,7 +13,9 @@ interface ITableComponentProps {
 const TableComponent = ({ loading = false }: ITableComponentProps) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { posts, sortMethod, sortBy } = useTypedSelector((state) => state.posts);
+  const { posts, sortMethod, sortBy, pagesCount, currentPage } = useTypedSelector(
+    (state) => state.posts,
+  );
 
   const onFieldSort = (field: SortBy) => {
     if (field === sortBy) {
@@ -71,7 +73,7 @@ const TableComponent = ({ loading = false }: ITableComponentProps) => {
         ) : (
           <tr>
             <td colSpan={3} className="text" style={{ textAlign: 'center' }}>
-              Данных нет
+              {currentPage > pagesCount ? 'На данной странице ничего нет' : 'Данных нет'}
             </td>
           </tr>
         )}

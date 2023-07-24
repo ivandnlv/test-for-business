@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { AppDispatch } from '../../redux/store';
 import { useDispatch } from 'react-redux';
-import { setCurrentPage } from '../../redux/slices/posts';
+import { setCurrentPage, setPagesCount } from '../../redux/slices/posts';
 
 const PaginationComponent = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -11,6 +11,10 @@ const PaginationComponent = () => {
 
   const [pages, setPages] = useState<number[] | null>(null);
   const [maxPage, setMaxPage] = useState<number>(0);
+
+  useEffect(() => {
+    dispatch(setPagesCount(maxPage));
+  }, [maxPage]);
 
   useEffect(() => {
     if (postsCount) {
